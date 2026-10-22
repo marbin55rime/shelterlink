@@ -26,7 +26,7 @@ The first 3 rows are **EXAMPLES**. Replace them with real services you have chec
 | notes | Anything useful | Children must come before 1pm |
 
 ### Types
-- **food:** `meal_point`, `community_kitchen`, `food_drive`, `school_meal`
+- **food:** `meal_point`, `community_kitchen`, `food_drive`, `school_meal`, `food_bank`, `mobile_meal`
 - **health:** `health_camp`, `clinic`, `hospital`, `medicine_distribution`, `vaccination`, `first_aid`, `counselling`
 - **education:** `edu_camp`, `street_class`, `night_school`, `school_admission`, `skill_training`, `library`, `free_materials`
 

@@ -1,0 +1,71 @@
+text,intent
+i am hungry,FOOD
+where can i eat,FOOD
+free food today,FOOD
+i did not eat since morning,FOOD
+where is free lunch,FOOD
+any place giving food now,FOOD
+i want rice,FOOD
+where do they give khana,FOOD
+my little brother is hungry,FOOD
+food near bus park,FOOD
+is there dinner tonight,FOOD
+who gives food for free,FOOD
+i have no money for food,FOOD
+where is the temple food,FOOD
+breakfast free where,FOOD
+my stomach hurts,HEALTH
+i need medicine,HEALTH
+any free doctor,HEALTH
+is there eye camp,HEALTH
+i have fever,HEALTH
+my tooth is paining,HEALTH
+where is free hospital,HEALTH
+i have cough for many days,HEALTH
+my leg has a small cut,HEALTH
+where can i get injection free,HEALTH
+skin is itching a lot,HEALTH
+i feel sad all the time,HEALTH
+free check up where,HEALTH
+my friend is sick,HEALTH
+health camp near me,HEALTH
+any class today,EDUCATION
+i want to read,EDUCATION
+can i go to school,EDUCATION
+free computer class,EDUCATION
+where can i study,EDUCATION
+i want to learn english,EDUCATION
+is there class on saturday,EDUCATION
+i have no papers can i join school,EDUCATION
+where do they give free books,EDUCATION
+i want to learn a job,EDUCATION
+night class near station,EDUCATION
+teach me to write my name,EDUCATION
+any free tuition,EDUCATION
+i want to learn tailoring,EDUCATION
+where is the street class,EDUCATION
+i am bleeding,EMERGENCY
+someone hit me,EMERGENCY
+i am lost,EMERGENCY
+my friend fainted,EMERGENCY
+someone is following me,EMERGENCY
+help me please,EMERGENCY
+i cannot breathe,EMERGENCY
+a man is hurting me,EMERGENCY
+my friend is not waking up,EMERGENCY
+i got hit by a bike,EMERGENCY
+they took me and i ran away,EMERGENCY
+i am scared someone will hurt me,EMERGENCY
+there is a lot of blood,EMERGENCY
+my sister is missing,EMERGENCY
+police beat me,EMERGENCY
+hello,OTHER
+what is your name,OTHER
+tell me a joke,OTHER
+who made you,OTHER
+what time is it,OTHER
+i like cricket,OTHER
+are you a robot,OTHER
+thank you,OTHER
+bye,OTHER
+where can i charge my phone,OTHER

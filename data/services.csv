@@ -1,4 +1,2 @@
 id,category,type,name,landmark,latitude,longitude,days,time,start_date,end_date,age_range,free_items,language,organizer,contact,verified_by,verified_date,notes
-1,education,street_class,EXAMPLE - My street class (replace with real details),EXAMPLE - park near bus station,,,Sat;Sun,10:00-12:00,,,6-14,books;pencils,local,Me (volunteer),,NOT VERIFIED,,Replace this row with your own class
-2,food,meal_point,EXAMPLE - Temple free lunch,EXAMPLE - behind the main market,,,Mon;Tue;Wed;Thu;Fri;Sat;Sun,12:00-14:00,,,all,lunch,local,,,NOT VERIFIED,,Delete after adding real services
-3,health,health_camp,EXAMPLE - Free eye check-up camp,EXAMPLE - community hall,,,Sun,09:00-15:00,2026-11-15,2026-11-15,all,eye check;glasses,local,,,NOT VERIFIED,,Camps need start_date and end_date
+1,education,street_class,Alor School,Dhanmondi 32 - near the bridge,,,Fri;Sat,10:00-13:00,,,5-14,meals;snacks;paper;pencils,Bangla,Alor School (organization),,volunteer teacher (project lead),2026-10-22,Subjects: reading; writing; math; Bangla; English; religion; fun activities. Plans to expand to more areas of Dhaka.

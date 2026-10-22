@@ -23,8 +23,8 @@ ShelterLink helps street children find free **food, health care and education**.
 
 ## 5. Emergencies always come first
 If a child mentions danger, injury, abuse, being lost, or serious illness:
-1. The bot immediately gives the **child helpline** number: ______ (fill in for your country, e.g. 1098 in India and Nepal)
-2. And the **ambulance / police** numbers: ______
+1. The bot immediately gives the **Bangladesh Child Helpline: 1098** (free)
+2. And the **National Emergency Service: 999** (police, fire, ambulance; free)
 3. The case is flagged for a partner NGO to follow up.
 4. When unsure, treat it as an emergency.
 

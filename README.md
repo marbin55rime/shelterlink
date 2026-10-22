@@ -2,7 +2,7 @@
 
 **An AI voice helpline that connects street children to free food, health care and education, in their own language, from any phone or a kiosk.**
 
-Built by a volunteer street-class teacher, for the children they teach.
+Built by a volunteer teacher at **Alor School**, a free street school for children aged 5–14 in Dhanmondi, Dhaka, Bangladesh. First language: **Bangla**.
 
 ## Scope (v1)
 🍲 Food · ⚕️ Health care · 📚 Education, plus emergency routing to the child helpline, which is always on.

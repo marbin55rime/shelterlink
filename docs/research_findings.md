@@ -5,8 +5,6 @@ What we learn from field work. Each finding should change how ShelterLink is des
 ## F1. Children go to the nearest government hospital, but usually alone (2026-10-22)
 **What we found:** When sick, Alor School students go to the nearest government hospital (Dhaka Shishu, Suhrawardy, DMCH, BMU). Hospitals expect a child to come with a trusted adult, but most street children have no parent or guardian with them.
 
-**Context:** Bangladesh has an estimated **3.4 million** children in street situations. *(TODO: add the source, e.g. the BBS / UNICEF Survey on Street Children 2022.)*
-
 **Other problems:**
 - The OPD ticket counter closes at 2:00 pm, and OPD is closed on Friday.
 - Free medicine runs out, and children may have no money to buy it.

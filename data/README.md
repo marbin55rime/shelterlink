@@ -16,6 +16,7 @@ The first 3 rows are **EXAMPLES**. Replace them with real services you have chec
 | time | Opening hours | 12:00-14:00 |
 | start_date, end_date | **Only for camps or events** (YYYY-MM-DD). Leave empty for permanent places | 2026-11-15 |
 | age_range | Who can come | 6-14 or all |
+| cost | Price, if any | free, or OPD ticket 10 taka |
 | free_items | What is given for free, separated by `;` | lunch;books |
 | language | Language spoken there | Nepali |
 | organizer | Who runs it | XYZ Foundation |

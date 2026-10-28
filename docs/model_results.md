@@ -5,6 +5,7 @@ Every time the intent model is retrained, add a row here. This shows progress ov
 | Version | Date | Sentences | Accuracy | EMERGENCY caught (recall) | Notes |
 |---|---|---|---|---|---|
 | v0 baseline | 2026-10-29 | 164 (English, Bangla, Banglish) | 52% | 54% (19 of 35) | TF-IDF char n-grams + logistic regression, 5-fold cross-validation. Too little data: ~12 sentences per intent per language. |
+| v0.1 | 2026-10-29 | 171 (+7 real student sentences) | 58% | 54% (19 of 35) | First real Alor School sentences (food, health). Now handles spelling variants like *bhuk lagse* and *shorir bhalo nai*. |
 
 ## What we learned from v0
 - **The model is weak because the data is tiny.** Each intent has only about 12 examples per language (English, Bangla script, Banglish).

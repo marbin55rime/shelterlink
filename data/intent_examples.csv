@@ -1,165 +1,172 @@
-text,intent
-i am hungry,FOOD
-where can i eat,FOOD
-free food today,FOOD
-i did not eat since morning,FOOD
-where is free lunch,FOOD
-any place giving food now,FOOD
-i want rice,FOOD
-where do they give khana,FOOD
-my little brother is hungry,FOOD
-food near bus park,FOOD
-is there dinner tonight,FOOD
-who gives food for free,FOOD
-i have no money for food,FOOD
-where is the temple food,FOOD
-breakfast free where,FOOD
-my stomach hurts,HEALTH
-i need medicine,HEALTH
-any free doctor,HEALTH
-is there eye camp,HEALTH
-i have fever,HEALTH
-my tooth is paining,HEALTH
-where is free hospital,HEALTH
-i have cough for many days,HEALTH
-my leg has a small cut,HEALTH
-where can i get injection free,HEALTH
-skin is itching a lot,HEALTH
-i feel sad all the time,HEALTH
-free check up where,HEALTH
-my friend is sick,HEALTH
-health camp near me,HEALTH
-any class today,EDUCATION
-i want to read,EDUCATION
-can i go to school,EDUCATION
-free computer class,EDUCATION
-where can i study,EDUCATION
-i want to learn english,EDUCATION
-is there class on saturday,EDUCATION
-i have no papers can i join school,EDUCATION
-where do they give free books,EDUCATION
-i want to learn a job,EDUCATION
-night class near station,EDUCATION
-teach me to write my name,EDUCATION
-any free tuition,EDUCATION
-i want to learn tailoring,EDUCATION
-where is the street class,EDUCATION
-i am bleeding,EMERGENCY
-someone hit me,EMERGENCY
-i am lost,EMERGENCY
-my friend fainted,EMERGENCY
-someone is following me,EMERGENCY
-help me please,EMERGENCY
-i cannot breathe,EMERGENCY
-a man is hurting me,EMERGENCY
-my friend is not waking up,EMERGENCY
-i got hit by a bike,EMERGENCY
-they took me and i ran away,EMERGENCY
-i am scared someone will hurt me,EMERGENCY
-there is a lot of blood,EMERGENCY
-my sister is missing,EMERGENCY
-police beat me,EMERGENCY
-hello,OTHER
-what is your name,OTHER
-tell me a joke,OTHER
-who made you,OTHER
-what time is it,OTHER
-i like cricket,OTHER
-are you a robot,OTHER
-thank you,OTHER
-bye,OTHER
-where can i charge my phone,OTHER
-আমার খিদে লাগছে,FOOD
-কোথায় খাবার পাবো,FOOD
-আজকে ফ্রি খাবার কোথায় দেয়,FOOD
-সকাল থেকে কিছু খাই নাই,FOOD
-দুপুরের খাবার কোথায় পাবো,FOOD
-ভাত খাইতে চাই,FOOD
-আমার ছোট ভাই না খেয়ে আছে,FOOD
-খাবার কেনার টাকা নাই,FOOD
-রাতে খাবার কোথায় দেয়,FOOD
-এক টাকার খাবার কোথায়,FOOD
-khida lagse,FOOD
-khabar kothay pabo,FOOD
-free khabar kothay dey,FOOD
-sokal theke kichu khai nai,FOOD
-bhat khabo,FOOD
-dupure khabar ache,FOOD
-khaite chai,FOOD
-taka nai khabar kinbo kemne,FOOD
-rate khabar dibe kothay,FOOD
-ek takar khabar gari kothay,FOOD
-আমার পেট ব্যথা করছে,HEALTH
-ওষুধ কোথায় পাবো,HEALTH
-জ্বর আসছে,HEALTH
-ডাক্তার দেখাতে চাই,HEALTH
-দাঁতে ব্যথা,HEALTH
-কাশি যাচ্ছে না,HEALTH
-হাসপাতাল কোথায়,HEALTH
-শরীর খারাপ লাগছে,HEALTH
-চুলকানি হইছে,HEALTH
-ফ্রি ওষুধ কোথায় দেয়,HEALTH
-pet betha korche,HEALTH
-oshudh kothay pabo,HEALTH
-jor ashche,HEALTH
-daktar dekhabo,HEALTH
-shorir kharap lagtese,HEALTH
-haspatal kothay,HEALTH
-dat e betha,HEALTH
-kashi jaitese na,HEALTH
-free oshudh dey kothay,HEALTH
-matha ghurtese,HEALTH
-আজকে ক্লাস আছে,EDUCATION
-আমি পড়তে চাই,EDUCATION
-স্কুলে ভর্তি হতে পারবো,EDUCATION
-কম্পিউটার শিখতে চাই,EDUCATION
-ইংরেজি শিখবো,EDUCATION
-বই খাতা কোথায় পাবো,EDUCATION
-শুক্রবার স্কুল আছে,EDUCATION
-নাম লিখতে শিখতে চাই,EDUCATION
-ফ্রি পড়াশোনা কোথায়,EDUCATION
-কাজ শিখতে চাই,EDUCATION
-aj class ache,EDUCATION
-porte chai,EDUCATION
-school e bhorti hobo,EDUCATION
-computer shikhte chai,EDUCATION
-english shikhbo,EDUCATION
-boi khata kothay pabo,EDUCATION
-alor school kobe,EDUCATION
-porashona korte chai,EDUCATION
-free class kothay hoy,EDUCATION
-kaj shikhte chai,EDUCATION
-আমাকে মারছে,EMERGENCY
-রক্ত পড়তেছে,EMERGENCY
-আমি হারায় গেছি,EMERGENCY
-আমার বন্ধু অজ্ঞান হয়ে গেছে,EMERGENCY
-একজন আমার পিছে পিছে আসতেছে,EMERGENCY
-বাঁচাও,EMERGENCY
-শ্বাস নিতে পারতেছি না,EMERGENCY
-গাড়ি ধাক্কা দিছে,EMERGENCY
-আমাকে ধরে নিয়ে যাইতে চায়,EMERGENCY
-আমার বোনকে খুঁজে পাচ্ছি না,EMERGENCY
-amake martese,EMERGENCY
-rokto porche,EMERGENCY
-ami haraye gesi,EMERGENCY
-bachao,EMERGENCY
-bondhu ojnan hoye gese,EMERGENCY
-keu amar piche ashtese,EMERGENCY
-shash nite partesi na,EMERGENCY
-gari dhakka dise,EMERGENCY
-amake dhore niye jaite chay,EMERGENCY
-amar bon ke paitesi na,EMERGENCY
-হ্যালো,OTHER
-তোমার নাম কি,OTHER
-তুমি কে,OTHER
-ধন্যবাদ,OTHER
-আমি ক্রিকেট খেলি,OTHER
-কয়টা বাজে,OTHER
-একটা গল্প বলো,OTHER
-hello bhai,OTHER
-tomar nam ki,OTHER
-dhonnobad,OTHER
-ki khobor,OTHER
-khela dekhbo,OTHER
-gaan sunbo,OTHER
-phone charge dibo kothay,OTHER
+text,intent,source
+i am hungry,FOOD,seed
+where can i eat,FOOD,seed
+free food today,FOOD,seed
+i did not eat since morning,FOOD,seed
+where is free lunch,FOOD,seed
+any place giving food now,FOOD,seed
+i want rice,FOOD,seed
+where do they give khana,FOOD,seed
+my little brother is hungry,FOOD,seed
+food near bus park,FOOD,seed
+is there dinner tonight,FOOD,seed
+who gives food for free,FOOD,seed
+i have no money for food,FOOD,seed
+where is the temple food,FOOD,seed
+breakfast free where,FOOD,seed
+my stomach hurts,HEALTH,seed
+i need medicine,HEALTH,seed
+any free doctor,HEALTH,seed
+is there eye camp,HEALTH,seed
+i have fever,HEALTH,seed
+my tooth is paining,HEALTH,seed
+where is free hospital,HEALTH,seed
+i have cough for many days,HEALTH,seed
+my leg has a small cut,HEALTH,seed
+where can i get injection free,HEALTH,seed
+skin is itching a lot,HEALTH,seed
+i feel sad all the time,HEALTH,seed
+free check up where,HEALTH,seed
+my friend is sick,HEALTH,seed
+health camp near me,HEALTH,seed
+any class today,EDUCATION,seed
+i want to read,EDUCATION,seed
+can i go to school,EDUCATION,seed
+free computer class,EDUCATION,seed
+where can i study,EDUCATION,seed
+i want to learn english,EDUCATION,seed
+is there class on saturday,EDUCATION,seed
+i have no papers can i join school,EDUCATION,seed
+where do they give free books,EDUCATION,seed
+i want to learn a job,EDUCATION,seed
+night class near station,EDUCATION,seed
+teach me to write my name,EDUCATION,seed
+any free tuition,EDUCATION,seed
+i want to learn tailoring,EDUCATION,seed
+where is the street class,EDUCATION,seed
+i am bleeding,EMERGENCY,seed
+someone hit me,EMERGENCY,seed
+i am lost,EMERGENCY,seed
+my friend fainted,EMERGENCY,seed
+someone is following me,EMERGENCY,seed
+help me please,EMERGENCY,seed
+i cannot breathe,EMERGENCY,seed
+a man is hurting me,EMERGENCY,seed
+my friend is not waking up,EMERGENCY,seed
+i got hit by a bike,EMERGENCY,seed
+they took me and i ran away,EMERGENCY,seed
+i am scared someone will hurt me,EMERGENCY,seed
+there is a lot of blood,EMERGENCY,seed
+my sister is missing,EMERGENCY,seed
+police beat me,EMERGENCY,seed
+hello,OTHER,seed
+what is your name,OTHER,seed
+tell me a joke,OTHER,seed
+who made you,OTHER,seed
+what time is it,OTHER,seed
+i like cricket,OTHER,seed
+are you a robot,OTHER,seed
+thank you,OTHER,seed
+bye,OTHER,seed
+where can i charge my phone,OTHER,seed
+আমার খিদে লাগছে,FOOD,seed
+কোথায় খাবার পাবো,FOOD,seed
+আজকে ফ্রি খাবার কোথায় দেয়,FOOD,seed
+সকাল থেকে কিছু খাই নাই,FOOD,seed
+দুপুরের খাবার কোথায় পাবো,FOOD,seed
+ভাত খাইতে চাই,FOOD,seed
+আমার ছোট ভাই না খেয়ে আছে,FOOD,seed
+খাবার কেনার টাকা নাই,FOOD,seed
+রাতে খাবার কোথায় দেয়,FOOD,seed
+এক টাকার খাবার কোথায়,FOOD,seed
+khida lagse,FOOD,seed
+khabar kothay pabo,FOOD,seed
+free khabar kothay dey,FOOD,seed
+sokal theke kichu khai nai,FOOD,seed
+bhat khabo,FOOD,seed
+dupure khabar ache,FOOD,seed
+khaite chai,FOOD,seed
+taka nai khabar kinbo kemne,FOOD,seed
+rate khabar dibe kothay,FOOD,seed
+ek takar khabar gari kothay,FOOD,seed
+আমার পেট ব্যথা করছে,HEALTH,seed
+ওষুধ কোথায় পাবো,HEALTH,seed
+জ্বর আসছে,HEALTH,seed
+ডাক্তার দেখাতে চাই,HEALTH,seed
+দাঁতে ব্যথা,HEALTH,seed
+কাশি যাচ্ছে না,HEALTH,seed
+হাসপাতাল কোথায়,HEALTH,seed
+শরীর খারাপ লাগছে,HEALTH,seed
+চুলকানি হইছে,HEALTH,seed
+ফ্রি ওষুধ কোথায় দেয়,HEALTH,seed
+pet betha korche,HEALTH,seed
+oshudh kothay pabo,HEALTH,seed
+jor ashche,HEALTH,seed
+daktar dekhabo,HEALTH,seed
+shorir kharap lagtese,HEALTH,seed
+haspatal kothay,HEALTH,seed
+dat e betha,HEALTH,seed
+kashi jaitese na,HEALTH,seed
+free oshudh dey kothay,HEALTH,seed
+matha ghurtese,HEALTH,seed
+আজকে ক্লাস আছে,EDUCATION,seed
+আমি পড়তে চাই,EDUCATION,seed
+স্কুলে ভর্তি হতে পারবো,EDUCATION,seed
+কম্পিউটার শিখতে চাই,EDUCATION,seed
+ইংরেজি শিখবো,EDUCATION,seed
+বই খাতা কোথায় পাবো,EDUCATION,seed
+শুক্রবার স্কুল আছে,EDUCATION,seed
+নাম লিখতে শিখতে চাই,EDUCATION,seed
+ফ্রি পড়াশোনা কোথায়,EDUCATION,seed
+কাজ শিখতে চাই,EDUCATION,seed
+aj class ache,EDUCATION,seed
+porte chai,EDUCATION,seed
+school e bhorti hobo,EDUCATION,seed
+computer shikhte chai,EDUCATION,seed
+english shikhbo,EDUCATION,seed
+boi khata kothay pabo,EDUCATION,seed
+alor school kobe,EDUCATION,seed
+porashona korte chai,EDUCATION,seed
+free class kothay hoy,EDUCATION,seed
+kaj shikhte chai,EDUCATION,seed
+আমাকে মারছে,EMERGENCY,seed
+রক্ত পড়তেছে,EMERGENCY,seed
+আমি হারায় গেছি,EMERGENCY,seed
+আমার বন্ধু অজ্ঞান হয়ে গেছে,EMERGENCY,seed
+একজন আমার পিছে পিছে আসতেছে,EMERGENCY,seed
+বাঁচাও,EMERGENCY,seed
+শ্বাস নিতে পারতেছি না,EMERGENCY,seed
+গাড়ি ধাক্কা দিছে,EMERGENCY,seed
+আমাকে ধরে নিয়ে যাইতে চায়,EMERGENCY,seed
+আমার বোনকে খুঁজে পাচ্ছি না,EMERGENCY,seed
+amake martese,EMERGENCY,seed
+rokto porche,EMERGENCY,seed
+ami haraye gesi,EMERGENCY,seed
+bachao,EMERGENCY,seed
+bondhu ojnan hoye gese,EMERGENCY,seed
+keu amar piche ashtese,EMERGENCY,seed
+shash nite partesi na,EMERGENCY,seed
+gari dhakka dise,EMERGENCY,seed
+amake dhore niye jaite chay,EMERGENCY,seed
+amar bon ke paitesi na,EMERGENCY,seed
+হ্যালো,OTHER,seed
+তোমার নাম কি,OTHER,seed
+তুমি কে,OTHER,seed
+ধন্যবাদ,OTHER,seed
+আমি ক্রিকেট খেলি,OTHER,seed
+কয়টা বাজে,OTHER,seed
+একটা গল্প বলো,OTHER,seed
+hello bhai,OTHER,seed
+tomar nam ki,OTHER,seed
+dhonnobad,OTHER,seed
+ki khobor,OTHER,seed
+khela dekhbo,OTHER,seed
+gaan sunbo,OTHER,seed
+phone charge dibo kothay,OTHER,seed
+amer khida lagse,FOOD,student
+bukh lagse,FOOD,student
+khawan lagbo,FOOD,student
+soril ta bala nai,HEALTH,student
+bala lagtese nh,HEALTH,student
+amer ki jani hoise,HEALTH,student
+dacter dhekhan lagbo,HEALTH,student

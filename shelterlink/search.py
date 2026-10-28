@@ -152,7 +152,18 @@ def describe(service):
     return line
 
 
-def answer(text, when=None, model=None, services=None, landmarks=None):
+def nearest_emergency(results):
+    er = results[[has_24h_emergency(s) for _, s in results.iterrows()]]
+    return er.iloc[0] if len(er) else None
+
+
+def answer_details(text, when=None, model=None, services=None, landmarks=None):
+    """
+    Everything ShelterLink found for one question, as a dictionary:
+      intent, place, best (the service to suggest, or None), is_open,
+      emergency (nearest 24-hour emergency hospital, or None),
+      facts (a plain-English summary - the ONLY facts a reply may use)
+    """
     when = when or datetime.now()
     model = model or load_model()
     services = load_services() if services is None else services
@@ -161,31 +172,39 @@ def answer(text, when=None, model=None, services=None, landmarks=None):
     intent = predict_intent(model, text)
     place = find_landmark(text, landmarks)
     where = f" near {place['name']}" if place is not None else ""
+    found = {"intent": intent, "place": place, "best": None, "is_open": False, "emergency": None}
 
     if intent == "EMERGENCY":
-        hospitals = search("health", place, when, services)
-        er = hospitals[[has_24h_emergency(s) for _, s in hospitals.iterrows()]]
-        reply = f"Call {HELPLINES} now."
-        if len(er):
-            reply += f" Nearest emergency (open 24 hours): {describe(er.iloc[0])}."
-        return intent, place, reply
+        found["emergency"] = nearest_emergency(search("health", place, when, services))
+        facts = f"Call {HELPLINES} now."
+        if found["emergency"] is not None:
+            facts += f" Nearest emergency (open 24 hours): {describe(found['emergency'])}."
+        return {**found, "facts": facts}
 
     if intent == "OTHER":
-        return intent, place, "I can help you find free food, a doctor, or a class. What do you need?"
+        return {**found, "facts": "I can help you find free food, a doctor, or a class. What do you need?"}
 
     results = search(intent.lower(), place, when, services)
     open_now = results[results["open_now"] == True]  # noqa: E712 (open_now can be None)
 
     if len(open_now):
-        reply = f"Open now{where}: {describe(open_now.iloc[0])}."
+        found["best"], found["is_open"] = open_now.iloc[0], True
+        facts = f"Open now{where}: {describe(found['best'])}."
     elif len(results):
-        reply = f"Nothing is open right now{where}. Next option: {describe(results.iloc[0])}."
+        found["best"] = results.iloc[0]
+        facts = f"Nothing is open right now{where}. Next option: {describe(found['best'])}."
         if intent == "HEALTH":
-            er = results[[has_24h_emergency(s) for _, s in results.iterrows()]]
-            if len(er):
-                reply += f" If it is serious, go to the Emergency gate at {er.iloc[0]['name']} (open 24 hours)."
+            found["emergency"] = nearest_emergency(results)
+            if found["emergency"] is not None:
+                facts += f" If it is serious, go to the Emergency gate at {found['emergency']['name']} (open 24 hours)."
     else:
-        reply = f"I don't have a checked place for this yet. Ask your Alor School teacher, or call {HELPLINES}."
+        facts = f"I don't have a checked place for this yet. Ask your Alor School teacher, or call {HELPLINES}."
     if place is None and len(results):
-        reply += " Tell me where you are, and I can find the nearest one."
-    return intent, place, reply
+        facts += " Tell me where you are, and I can find the nearest one."
+    return {**found, "facts": facts}
+
+
+def answer(text, when=None, model=None, services=None, landmarks=None):
+    """Short English reply: (intent, place, reply)."""
+    found = answer_details(text, when, model, services, landmarks)
+    return found["intent"], found["place"], found["facts"]

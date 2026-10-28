@@ -4,3 +4,4 @@ outputs/
 .ipynb_checkpoints/
 # Never commit research notes that could identify children
 data/research_notes*.csv
+models/

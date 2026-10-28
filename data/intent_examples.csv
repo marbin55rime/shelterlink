@@ -69,3 +69,97 @@ are you a robot,OTHER
 thank you,OTHER
 bye,OTHER
 where can i charge my phone,OTHER
+আমার খিদে লাগছে,FOOD
+কোথায় খাবার পাবো,FOOD
+আজকে ফ্রি খাবার কোথায় দেয়,FOOD
+সকাল থেকে কিছু খাই নাই,FOOD
+দুপুরের খাবার কোথায় পাবো,FOOD
+ভাত খাইতে চাই,FOOD
+আমার ছোট ভাই না খেয়ে আছে,FOOD
+খাবার কেনার টাকা নাই,FOOD
+রাতে খাবার কোথায় দেয়,FOOD
+এক টাকার খাবার কোথায়,FOOD
+khida lagse,FOOD
+khabar kothay pabo,FOOD
+free khabar kothay dey,FOOD
+sokal theke kichu khai nai,FOOD
+bhat khabo,FOOD
+dupure khabar ache,FOOD
+khaite chai,FOOD
+taka nai khabar kinbo kemne,FOOD
+rate khabar dibe kothay,FOOD
+ek takar khabar gari kothay,FOOD
+আমার পেট ব্যথা করছে,HEALTH
+ওষুধ কোথায় পাবো,HEALTH
+জ্বর আসছে,HEALTH
+ডাক্তার দেখাতে চাই,HEALTH
+দাঁতে ব্যথা,HEALTH
+কাশি যাচ্ছে না,HEALTH
+হাসপাতাল কোথায়,HEALTH
+শরীর খারাপ লাগছে,HEALTH
+চুলকানি হইছে,HEALTH
+ফ্রি ওষুধ কোথায় দেয়,HEALTH
+pet betha korche,HEALTH
+oshudh kothay pabo,HEALTH
+jor ashche,HEALTH
+daktar dekhabo,HEALTH
+shorir kharap lagtese,HEALTH
+haspatal kothay,HEALTH
+dat e betha,HEALTH
+kashi jaitese na,HEALTH
+free oshudh dey kothay,HEALTH
+matha ghurtese,HEALTH
+আজকে ক্লাস আছে,EDUCATION
+আমি পড়তে চাই,EDUCATION
+স্কুলে ভর্তি হতে পারবো,EDUCATION
+কম্পিউটার শিখতে চাই,EDUCATION
+ইংরেজি শিখবো,EDUCATION
+বই খাতা কোথায় পাবো,EDUCATION
+শুক্রবার স্কুল আছে,EDUCATION
+নাম লিখতে শিখতে চাই,EDUCATION
+ফ্রি পড়াশোনা কোথায়,EDUCATION
+কাজ শিখতে চাই,EDUCATION
+aj class ache,EDUCATION
+porte chai,EDUCATION
+school e bhorti hobo,EDUCATION
+computer shikhte chai,EDUCATION
+english shikhbo,EDUCATION
+boi khata kothay pabo,EDUCATION
+alor school kobe,EDUCATION
+porashona korte chai,EDUCATION
+free class kothay hoy,EDUCATION
+kaj shikhte chai,EDUCATION
+আমাকে মারছে,EMERGENCY
+রক্ত পড়তেছে,EMERGENCY
+আমি হারায় গেছি,EMERGENCY
+আমার বন্ধু অজ্ঞান হয়ে গেছে,EMERGENCY
+একজন আমার পিছে পিছে আসতেছে,EMERGENCY
+বাঁচাও,EMERGENCY
+শ্বাস নিতে পারতেছি না,EMERGENCY
+গাড়ি ধাক্কা দিছে,EMERGENCY
+আমাকে ধরে নিয়ে যাইতে চায়,EMERGENCY
+আমার বোনকে খুঁজে পাচ্ছি না,EMERGENCY
+amake martese,EMERGENCY
+rokto porche,EMERGENCY
+ami haraye gesi,EMERGENCY
+bachao,EMERGENCY
+bondhu ojnan hoye gese,EMERGENCY
+keu amar piche ashtese,EMERGENCY
+shash nite partesi na,EMERGENCY
+gari dhakka dise,EMERGENCY
+amake dhore niye jaite chay,EMERGENCY
+amar bon ke paitesi na,EMERGENCY
+হ্যালো,OTHER
+তোমার নাম কি,OTHER
+তুমি কে,OTHER
+ধন্যবাদ,OTHER
+আমি ক্রিকেট খেলি,OTHER
+কয়টা বাজে,OTHER
+একটা গল্প বলো,OTHER
+hello bhai,OTHER
+tomar nam ki,OTHER
+dhonnobad,OTHER
+ki khobor,OTHER
+khela dekhbo,OTHER
+gaan sunbo,OTHER
+phone charge dibo kothay,OTHER

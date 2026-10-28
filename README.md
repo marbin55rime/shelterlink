@@ -17,16 +17,21 @@ ShelterLink/
 ├── docs/
 │   ├── field_research_guide.md      # interview questions + verification checklist
 │   └── child_safeguarding_policy.md # safety rules (draft)
+│   └── landmarks.csv          # Dhaka place names and spellings children use
 ├── notebooks/
-│   └── 01_explore_services.py # first Python script: look at the data
+│   ├── 01_explore_services.py        # look at the data
+│   ├── 02_train_intent_classifier.py # Phase 1: train the "what do you need?" model
+│   └── 03_smart_search.py            # Phase 2: need + place + time -> nearest open service
+├── shelterlink/
+│   └── search.py              # reusable search code (landmarks, distance, open now)
 ├── LEARNING_LOG.md            # what I learn every week
 └── requirements.txt
 ```
 
 ## Roadmap
 - [ ] **Phase 0: Field work and foundations** (weeks 1–4): map 30+ verified services, talk to children, learn Python and Pandas
-- [ ] **Phase 1: Intent classifier** (weeks 5–8): FOOD / HEALTH / EDUCATION / EMERGENCY / OTHER, plus a Telegram test bot
-- [ ] **Phase 2: Smart search** (weeks 9–11): landmarks, "open now", dates for camps, age filter
+- [ ] **Phase 1: Intent classifier** (weeks 5–8): FOOD / HEALTH / EDUCATION / EMERGENCY / OTHER, plus a Telegram test bot. *In progress: v0.1 model at 58%, collecting real student sentences*
+- [ ] **Phase 2: Smart search** (weeks 9–11): landmarks, "open now", dates for camps, age filter. *In progress: landmark matching, distance, open-now and safety filters working*
 - [ ] **Phase 3: LLM answers** (weeks 12–15): tool calling over verified data, health safety rules
 - [ ] **Phase 4: Voice** (weeks 16–19): speech-to-text and text-to-speech in the local language
 - [ ] **Phase 5: Access channels** (weeks 20–23): missed-call line, SMS, kiosk, picture posters, camp alerts

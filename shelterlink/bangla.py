@@ -16,7 +16,7 @@ from pathlib import Path
 
 import anthropic
 
-from shelterlink.search import PROJECT, answer_details
+from shelterlink.search import FAR_KM, PROJECT, answer_details, walking_minutes
 
 MODEL = "claude-opus-5-5"
 HOSPITAL_GUIDE = (PROJECT / "docs" / "hospital_guide.md").read_text(encoding="utf-8")
@@ -93,7 +93,12 @@ def where_bn(service):
     line = f"{service['name']} ({service['landmark']})"
     km = service.get("km")
     if km == km and km is not None:  # km != km only when it is NaN (unknown)
-        line += ", একদম কাছে" if km < 0.2 else f", প্রায় {km:.1f} কিমি দূরে"
+        if km < 0.2:
+            line += ", একদম কাছে"
+        else:
+            line += f", প্রায় {km:.1f} কিমি দূরে (হেঁটে প্রায় {walking_minutes(km)} মিনিট)"
+        if km > FAR_KM:
+            line += "। এটা অনেক দূরে, কাছে এখনো যাচাই করা কোনো জায়গা নেই"
     return line
 
 
@@ -122,9 +127,11 @@ def template_reply(found):
 # ---------------------------------------------------------------
 # Put it together
 # ---------------------------------------------------------------
-def reply_in_bangla(child_text, when=None, model=None, services=None, landmarks=None, use_claude=True):
-    """Returns (found, reply, source) where source is 'claude' or 'offline'."""
-    found = answer_details(child_text, when, model, services, landmarks)
+def reply_in_bangla(child_text, when=None, model=None, services=None, landmarks=None,
+                    use_claude=True, location=None):
+    """Returns (found, reply, source) where source is 'claude' or 'offline'.
+    location: optional (latitude, longitude) from GPS."""
+    found = answer_details(child_text, when, model, services, landmarks, location)
 
     reply, source = None, "offline"
     if use_claude and has_credentials():

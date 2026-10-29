@@ -25,6 +25,10 @@ DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 HELPLINES = "Child Helpline 1098 or Emergency 999 (both free)"
 EMERGENCY_THRESHOLD = 0.30  # same safety rule as the training script
 LANDMARK_MATCH = 0.80  # how similar a word must be to a place name (0 to 1)
+SHORT_NAME_MATCH = 0.85  # short names need a closer match ("bala" must not match "basila")
+WALK_KMH = 4  # a child's walking speed
+DETOUR = 1.3  # streets are longer than a straight line on the map
+FAR_KM = 5  # farther than this, we warn that the place is far
 
 
 # ---------------------------------------------------------------
@@ -62,17 +66,31 @@ def predict_intent(model, text):
 #    similarity score, so small spelling mistakes still match.
 # ---------------------------------------------------------------
 def find_landmark(text, landmarks):
-    words = text.lower().split()
-    best, best_score = None, 0.0
+    words = re.sub(r"[,.!?।]", " ", text.lower()).split()
+    best, best_score, best_len = None, 0.0, 0
     for _, row in landmarks.iterrows():
         for alias in row["aliases"].split(";"):
             alias = alias.strip().lower()
             size = len(alias.split())
             pieces = [" ".join(words[i:i + size]) for i in range(len(words) - size + 1)]
             score = max((SequenceMatcher(None, alias, p).ratio() for p in pieces), default=0)
-            if score > best_score:
-                best, best_score = row, score
-    return best if best_score >= LANDMARK_MATCH else None
+            if score < (SHORT_NAME_MATCH if len(alias) < 7 else LANDMARK_MATCH):
+                continue
+            # On a tie, the longer name wins ("mirpur 10" beats "mirpur 1")
+            if score > best_score or (score == best_score and len(alias) > best_len):
+                best, best_score, best_len = row, score, len(alias)
+    return best
+
+
+def gps_place(latitude, longitude):
+    """A place from GPS (a phone, or a kiosk that knows where it stands)."""
+    return pd.Series({"name": "your location", "latitude": latitude, "longitude": longitude})
+
+
+def walking_minutes(km):
+    """Rough walking time, rounded to 5 minutes."""
+    minutes = km * DETOUR / WALK_KMH * 60
+    return max(5, round(minutes / 5) * 5)
 
 
 def distance_km(lat1, lon1, lat2, lon2):
@@ -146,7 +164,9 @@ def search(category, landmark, when, services, include_unverified=False):
 def describe(service):
     line = f"{service['name']} ({service['landmark']})"
     if pd.notna(service["km"]):
-        line += f", about {service['km']:.1f} km away"
+        line += f", about {service['km']:.1f} km away (about {walking_minutes(service['km'])} minutes walking)"
+        if service["km"] > FAR_KM:
+            line += ". This is far, and there is no checked place closer yet"
     if pd.notna(service["days"]):
         line += f". {service['days'].replace(';', ', ')}, {service['time']}"
     return line
@@ -157,12 +177,15 @@ def nearest_emergency(results):
     return er.iloc[0] if len(er) else None
 
 
-def answer_details(text, when=None, model=None, services=None, landmarks=None):
+def answer_details(text, when=None, model=None, services=None, landmarks=None, location=None):
     """
     Everything ShelterLink found for one question, as a dictionary:
       intent, place, best (the service to suggest, or None), is_open,
       emergency (nearest 24-hour emergency hospital, or None),
       facts (a plain-English summary - the ONLY facts a reply may use)
+
+    location: optional (latitude, longitude) from GPS. If given, it is used
+    instead of looking for a place name in the text.
     """
     when = when or datetime.now()
     model = model or load_model()
@@ -170,7 +193,7 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None):
     landmarks = load_landmarks() if landmarks is None else landmarks
 
     intent = predict_intent(model, text)
-    place = find_landmark(text, landmarks)
+    place = gps_place(*location) if location else find_landmark(text, landmarks)
     where = f" near {place['name']}" if place is not None else ""
     found = {"intent": intent, "place": place, "best": None, "is_open": False, "emergency": None}
 
@@ -204,7 +227,7 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None):
     return {**found, "facts": facts}
 
 
-def answer(text, when=None, model=None, services=None, landmarks=None):
+def answer(text, when=None, model=None, services=None, landmarks=None, location=None):
     """Short English reply: (intent, place, reply)."""
-    found = answer_details(text, when, model, services, landmarks)
+    found = answer_details(text, when, model, services, landmarks, location)
     return found["intent"], found["place"], found["facts"]

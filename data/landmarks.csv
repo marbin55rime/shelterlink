@@ -1,15 +1,89 @@
-name,latitude,longitude,aliases,approx
-Dhanmondi 32,23.7517,90.3780,dhanmondi 32;dhanmondi 32 number;32 number;batrish number;ধানমন্ডি ৩২;৩২ নম্বর;dhanmondi bridge,yes
-Dhanmondi Lake,23.7465,90.3760,dhanmondi lake;lake;lake er pashe;লেক;ধানমন্ডি লেক,yes
-Science Lab,23.7390,90.3830,science lab;science lab mor;সায়েন্সল্যাব;সাইন্সল্যাব,yes
-Kalabagan,23.7470,90.3820,kalabagan;কলাবাগান,yes
-Jigatola,23.7400,90.3700,jigatola;জিগাতলা,yes
-Asad Gate,23.7600,90.3730,asad gate;আসাদগেট,yes
-Mohammadpur,23.7660,90.3580,mohammadpur;মোহাম্মদপুর,yes
-Shyamoli,23.7740,90.3650,shyamoli;শ্যামলী,yes
-Agargaon,23.7775,90.3790,agargaon;আগারগাঁও,yes
-Farmgate,23.7580,90.3890,farmgate;ফার্মগেট,yes
-Karwan Bazar,23.7510,90.3930,karwan bazar;kawran bazar;কারওয়ান বাজার,yes
-Shahbag,23.7385,90.3958,shahbag;শাহবাগ,yes
-New Market,23.7330,90.3850,new market;নিউমার্কেট;নিউ মার্কেট,yes
-Shaheed Minar,23.7270,90.3970,shaheed minar;bakshibazar;শহীদ মিনার;বকশীবাজার,yes
+name,latitude,longitude,aliases,source
+Dhanmondi 32,23.7517,90.378,dhanmondi 32;dhanmondi 32 number;32 number;batrish number;ধানমন্ডি ৩২;৩২ নম্বর;dhanmondi bridge,manual
+Dhanmondi Lake,23.7465,90.376,dhanmondi lake;lake er pashe;ধানমন্ডি লেক,manual
+Dhanmondi 27,23.75409,90.37135,dhanmondi 27;27 number;ধানমন্ডি ২৭,openstreetmap
+Dhanmondi 15,23.7383,90.38124,dhanmondi 15;15 number;ধানমন্ডি ১৫,openstreetmap
+Science Lab,23.73909,90.38735,science lab;science lab mor;সায়েন্সল্যাব;সাইন্সল্যাব,openstreetmap
+Kalabagan,23.74872,90.3792,kalabagan;কলাবাগান,openstreetmap
+Jigatola,23.74032,90.37205,jigatola;জিগাতলা,openstreetmap
+Hazaribagh,23.73198,90.36841,hazaribagh;hazaribag;হাজারীবাগ,openstreetmap
+Rayer Bazar,23.74484,90.36273,rayer bazar;rayerbazar;রায়ের বাজার,openstreetmap
+Bosila,23.74403,90.35052,bosila;basila;বসিলা,openstreetmap
+Mohammadpur,23.75939,90.36633,mohammadpur;mohammodpur;মোহাম্মদপুর,openstreetmap
+Mohammadpur Town Hall,23.75996,90.36618,town hall;mohammadpur town hall;টাউন হল,openstreetmap
+Adabor,23.77328,90.35854,adabor;adabar;আদাবর,openstreetmap
+Shyamoli,23.7744,90.36543,shyamoli;shamoli;শ্যামলী,openstreetmap
+Asad Gate,23.76013,90.37272,asad gate;asadgate;আসাদগেট,openstreetmap
+Kallyanpur,23.78068,90.36133,kallyanpur;kalyanpur;কল্যাণপুর,openstreetmap
+Gabtoli,23.78277,90.34373,gabtoli;gabtali;gabtoli bus stand;গাবতলী,openstreetmap
+Technical,23.78206,90.35119,technical;technical mor;টেকনিক্যাল,openstreetmap
+Mirpur 1,23.80192,90.35235,mirpur 1;mirpur ek;মিরপুর ১,openstreetmap
+Mirpur 2,23.80634,90.35703,mirpur 2;mirpur dui;মিরপুর ২,openstreetmap
+Mirpur 10,23.80836,90.36826,mirpur 10;mirpur dosh;মিরপুর ১০,openstreetmap
+Mirpur 11,23.8191,90.36528,mirpur 11;মিরপুর ১১,openstreetmap
+Mirpur 12,23.8251,90.37067,mirpur 12;মিরপুর ১২,openstreetmap
+Pallabi,23.82616,90.36419,pallabi;পল্লবী,openstreetmap
+Kazipara,23.79924,90.37199,kazipara;কাজীপাড়া,openstreetmap
+Shewrapara,23.79096,90.37551,shewrapara;sheorapara;শেওড়াপাড়া,openstreetmap
+Agargaon,23.77843,90.38005,agargaon;আগারগাঁও,openstreetmap
+Bijoy Sarani,23.76835,90.39186,bijoy sarani;bijoy shoroni;বিজয় সরণি,openstreetmap
+Kafrul,23.78916,90.38562,kafrul;কাফরুল,openstreetmap
+Ibrahimpur,23.79539,90.38433,ibrahimpur;ইব্রাহিমপুর,openstreetmap
+Cantonment,23.81584,90.41049,cantonment;ক্যান্টনমেন্ট,openstreetmap
+Farmgate,23.75904,90.38711,farmgate;farm gate;farmget;ফার্মগেট,openstreetmap
+Tejgaon,23.76282,90.3913,tejgaon;তেজগাঁও,openstreetmap
+Karwan Bazar,23.75127,90.39278,karwan bazar;kawran bazar;karwanbazar;কারওয়ান বাজার,openstreetmap
+Panthapath,23.75287,90.38275,panthapath;pantha path;পান্থপথ,openstreetmap
+Green Road,23.74581,90.38521,green road;গ্রিন রোড,openstreetmap
+Bangla Motor,23.74584,90.39494,bangla motor;banglamotor;বাংলামোটর,openstreetmap
+Moghbazar,23.74493,90.41322,moghbazar;mogbazar;মগবাজার,openstreetmap
+Hatirjheel,23.74956,90.39636,hatirjheel;hatirjhil;হাতিরঝিল,openstreetmap
+Mouchak,23.74533,90.4119,mouchak;মৌচাক,openstreetmap
+Malibagh,23.74707,90.41377,malibagh;malibag;মালিবাগ,openstreetmap
+Shantinagar,23.74172,90.41179,shantinagar;শান্তিনগর,openstreetmap
+Kakrail,23.73854,90.40715,kakrail;কাকরাইল,openstreetmap
+Ramna,23.74025,90.39952,ramna;ramna park;রমনা,openstreetmap
+Segunbagicha,23.73403,90.40767,segunbagicha;সেগুনবাগিচা,openstreetmap
+Shahbag,23.73734,90.39617,shahbag;shahbagh;শাহবাগ,openstreetmap
+Dhaka University,23.73124,90.39153,dhaka university;tsc;dhabi;ঢাকা বিশ্ববিদ্যালয়;ঢাবি;টিএসসি,openstreetmap
+Nilkhet,23.73294,90.38609,nilkhet;নীলক্ষেত,openstreetmap
+New Market,23.73302,90.38468,new market;newmarket;নিউমার্কেট;নিউ মার্কেট,openstreetmap
+Azimpur,23.72529,90.38346,azimpur;আজিমপুর,openstreetmap
+Lalbagh,23.71884,90.38815,lalbagh;lalbag;lalbagh kella;লালবাগ,openstreetmap
+Shaheed Minar,23.72721,90.39664,shaheed minar;bakshibazar;dhaka medical;শহীদ মিনার;বকশীবাজার;ঢাকা মেডিকেল,openstreetmap
+Chankharpul,23.72313,90.39989,chankharpul;চানখারপুল,openstreetmap
+Chawkbazar,23.71532,90.39544,chawkbazar;chokbazar;চকবাজার,openstreetmap
+Bangshal,23.71565,90.40752,bangshal;বংশাল,openstreetmap
+Sadarghat,23.70589,90.40929,sadarghat;launch ghat;সদরঘাট,openstreetmap
+Gulistan,23.7249,90.41208,gulistan;golap shah mazar;গুলিস্তান,openstreetmap
+Paltan,23.73176,90.41142,paltan;polton;পল্টন,openstreetmap
+Motijheel,23.72726,90.4212,motijheel;motijhil;মতিঝিল,openstreetmap
+Kamalapur,23.73054,90.42686,kamalapur;kamalapur station;railway station;কমলাপুর,openstreetmap
+Wari,23.71498,90.41884,wari;ওয়ারী,openstreetmap
+Gendaria,23.70291,90.42408,gendaria;গেন্ডারিয়া,openstreetmap
+Sayedabad,23.71535,90.42754,sayedabad;saidabad;সায়েদাবাদ,openstreetmap
+Jatrabari,23.7094,90.43381,jatrabari;যাত্রাবাড়ী,openstreetmap
+Postogola,23.69178,90.4287,postogola;পোস্তগোলা,openstreetmap
+Demra,23.72849,90.4974,demra;ডেমরা,openstreetmap
+Kamrangirchar,23.71039,90.38701,kamrangirchar;কামরাঙ্গীরচর,openstreetmap
+Basabo,23.74154,90.43193,basabo;bashabo;বাসাবো,openstreetmap
+Mugda,23.72912,90.43357,mugda;মুগদা,openstreetmap
+Khilgaon,23.75065,90.42328,khilgaon;খিলগাঁও,openstreetmap
+Rampura,23.76832,90.42196,rampura;রামপুরা,openstreetmap
+Banasree,23.76171,90.43128,banasree;banasri;বনশ্রী,openstreetmap
+Aftabnagar,23.76575,90.4452,aftabnagar;আফতাবনগর,openstreetmap
+Badda,23.77654,90.4463,badda;বাড্ডা,openstreetmap
+Mohakhali,23.77991,90.40832,mohakhali;mohakhali bus stand;মহাখালী,openstreetmap
+Banani,23.79032,90.4077,banani;বনানী,openstreetmap
+Gulshan 1,23.78055,90.4169,gulshan 1;gulshan ek;গুলশান ১,openstreetmap
+Gulshan 2,23.79472,90.4137,gulshan 2;gulshan dui;গুলশান ২,openstreetmap
+Nadda,23.81037,90.41952,nadda;নদ্দা,openstreetmap
+Bashundhara,23.81893,90.43682,bashundhara;bosundhora;বসুন্ধরা,openstreetmap
+Kuril,23.81814,90.42213,kuril;kuril bishwa road;কুড়িল,openstreetmap
+Khilkhet,23.83513,90.43511,khilkhet;খিলক্ষেত,openstreetmap
+Airport,23.84314,90.4053,airport;biman bondor;এয়ারপোর্ট;বিমানবন্দর,openstreetmap
+Kawla,23.84681,90.4145,kawla;কাওলা,openstreetmap
+Uttara,23.86933,90.39269,uttara;uttora;উত্তরা,openstreetmap
+Abdullahpur,23.88068,90.40185,abdullahpur;আব্দুল্লাহপুর,openstreetmap
+Dakshinkhan,23.86147,90.42645,dakshinkhan;dokkhinkhan;দক্ষিণখান,openstreetmap
+Uttarkhan,23.89237,90.44171,uttarkhan;উত্তরখান,openstreetmap

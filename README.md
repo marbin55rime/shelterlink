@@ -17,7 +17,7 @@ ShelterLink/
 ├── docs/
 │   ├── field_research_guide.md      # interview questions + verification checklist
 │   └── child_safeguarding_policy.md # safety rules (draft)
-│   └── landmarks.csv          # Dhaka place names and spellings children use
+│   └── landmarks.csv          # 88 Dhaka areas with map locations and the spellings children use
 ├── notebooks/
 │   ├── 01_explore_services.py        # look at the data
 │   ├── 02_train_intent_classifier.py # Phase 1: train the "what do you need?" model
@@ -26,6 +26,8 @@ ShelterLink/
 ├── shelterlink/
 │   ├── search.py              # reusable search code (landmarks, distance, open now)
 │   └── bangla.py              # Bangla replies: Claude (LLM) or offline templates
+├── tools/
+│   └── build_landmarks.py     # gets map locations for Dhaka areas from OpenStreetMap
 ├── LEARNING_LOG.md            # what I learn every week
 └── requirements.txt
 ```

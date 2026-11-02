@@ -2,7 +2,7 @@
 ShelterLink - Step 2: Train your first AI model (intent classifier)
 
 Goal: read what a child says and decide what they need:
-    FOOD, HEALTH, EDUCATION, EMERGENCY or OTHER
+    FOOD, HEALTH, EDUCATION, SHELTER, EMERGENCY or OTHER
 
 What this script teaches you:
   - Turning text into numbers (TF-IDF with character n-grams)

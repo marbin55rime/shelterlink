@@ -22,7 +22,7 @@ DATA = PROJECT / "data"
 MODEL_PATH = PROJECT / "models" / "intent_model.joblib"
 
 DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-HELPLINES = "Child Helpline 1098 or Emergency 999 (both free)"
+HELPLINES = "Police 999 or Child Helpline 1098 (both free)"
 EMERGENCY_THRESHOLD = 0.30  # same safety rule as the training script
 LANDMARK_MATCH = 0.80  # how similar a word must be to a place name (0 to 1)
 SHORT_NAME_MATCH = 0.85  # short names need a closer match ("bala" must not match "basila")
@@ -51,7 +51,24 @@ def load_model():
 # ---------------------------------------------------------------
 # 1. What does the child need?
 # ---------------------------------------------------------------
+def load_danger_words():
+    lines = (DATA / "danger_words.txt").read_text(encoding="utf-8").splitlines()
+    return [w.strip().lower() for w in lines if w.strip() and not w.startswith("#")]
+
+
+DANGER_WORDS = load_danger_words()
+
+
+def has_danger_word(text):
+    # Spaces around every word, so only whole words match ("ki chan" but not "ki chanachur")
+    padded = " " + " ".join(re.sub(r"[,.!?।]", " ", text.lower()).split()) + " "
+    return any(f" {word} " in padded for word in DANGER_WORDS)
+
+
 def predict_intent(model, text):
+    # Safety net: danger words are always an emergency, even if the model is unsure
+    if has_danger_word(text):
+        return "EMERGENCY"
     probs = model.predict_proba([text.lower()])[0]
     classes = list(model.classes_)
     if probs[classes.index("EMERGENCY")] >= EMERGENCY_THRESHOLD:
@@ -162,7 +179,9 @@ def search(category, landmark, when, services, include_unverified=False):
 # 4. Put it together into a short reply
 # ---------------------------------------------------------------
 def describe(service):
-    line = f"{service['name']} ({service['landmark']})"
+    line = service["name"]
+    if pd.notna(service["landmark"]):
+        line += f" ({service['landmark']})"
     if pd.notna(service["km"]):
         line += f", about {service['km']:.1f} km away (about {walking_minutes(service['km'])} minutes walking)"
         if service["km"] > FAR_KM:
@@ -205,7 +224,7 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
         return {**found, "facts": facts}
 
     if intent == "OTHER":
-        return {**found, "facts": "I can help you find free food, a doctor, or a class. What do you need?"}
+        return {**found, "facts": "I can help you find free food, a doctor, a class, or a place to stay. What do you need?"}
 
     results = search(intent.lower(), place, when, services)
     open_now = results[results["open_now"] == True]  # noqa: E712 (open_now can be None)
@@ -222,6 +241,9 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
                 facts += f" If it is serious, go to the Emergency gate at {found['emergency']['name']} (open 24 hours)."
     else:
         facts = f"I don't have a checked place for this yet. Ask your Alor School teacher, or call {HELPLINES}."
+    if intent == "SHELTER":
+        # A child with nowhere to sleep tonight should always have a number to call
+        facts += " For a safe place tonight, you can also call Child Helpline 1098 (free)."
     if place is None and len(results):
         facts += " Tell me where you are, and I can find the nearest one."
     return {**found, "facts": facts}

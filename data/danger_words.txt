@@ -1,0 +1,89 @@
+# Danger words: if a child's message contains any of these, ShelterLink ALWAYS
+# treats it as an EMERGENCY, whatever the model thinks.
+# One word or phrase per line. Lines starting with # are ignored.
+# Only whole words match: "ki chan" catches "ki chan?" but not "ki chanachur".
+# So add each spelling and ending you hear (মারছে, মারতেছে, মারে...).
+# Add new spellings when you hear them. Better a false alarm than a missed emergency.
+
+# English
+bleeding
+blood
+hit me
+hurting me
+hurt me
+beat me
+fainted
+not waking up
+cannot breathe
+can't breathe
+following me
+i am lost
+missing
+ran away
+kidnap
+accident
+hit by
+
+# Bangla
+মারছে
+মারতেছে
+রক্ত
+হারায় গেছি
+হারিয়ে গেছি
+অজ্ঞান
+পিছে পিছে
+বাঁচাও
+শ্বাস নিতে
+ধাক্কা
+ধরে নিয়ে
+বোনকে খুঁজে পাচ্ছি না
+ভাইকে খুঁজে পাচ্ছি না
+বন্ধুকে খুঁজে পাচ্ছি না
+
+# Banglish
+martese
+marse
+rokto
+haraye gesi
+harai gesi
+bachao
+bachaw
+ojnan
+piche ashtese
+shash nite
+dhakka
+dhore niye
+ke paitesi na
+
+# What a child says to a stranger who scares them (from the project lead)
+amar theke dure thaken
+dure thaken
+ke apni
+ki chan
+keno assen
+keno ashsen
+আমার থেকে দূরে থাকেন
+দূরে থাকেন
+কে আপনি
+কি চান
+কেন আসছেন
+
+# Bad touching and being grabbed - suggested by Claude, CHECK these with children
+chere den
+chaira den
+chhaira den
+chuiben na
+chhuiyen na
+dhoiren na
+gaye hat diben na
+kache ashben na
+kharap jaygay hat dise
+baje bhabe chuise
+ছেড়ে দেন
+ছাইড়া দেন
+ছুঁইবেন না
+ধইরেন না
+গায়ে হাত দিবেন না
+কাছে আসবেন না
+খারাপ জায়গায় হাত দিছে
+বাজে ভাবে ছুঁইছে

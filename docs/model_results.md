@@ -6,6 +6,7 @@ Every time the intent model is retrained, add a row here. This shows progress ov
 |---|---|---|---|---|---|
 | v0 baseline | 2026-10-29 | 164 (English, Bangla, Banglish) | 52% | 54% (19 of 35) | TF-IDF char n-grams + logistic regression, 5-fold cross-validation. Too little data: ~12 sentences per intent per language. |
 | v0.1 | 2026-10-29 | 171 (+7 real student sentences) | 58% | 54% (19 of 35) | First real Alor School sentences (food, health). Now handles spelling variants like *bhuk lagse* and *shorir bhalo nai*. |
+| v0.2 | 2026-11-02 | 203 (+26 shelter, +6 emergency) | 62% | 66% (27 of 41) by the model; 41 of 41 with the danger-word safety net | New SHELTER intent (85% caught). Danger words in `data/danger_words.txt` always mean EMERGENCY. The safety net's 41 of 41 is on the sentences its words came from, so it must be tested on new student sentences. |
 
 ## What we learned from v0
 - **The model is weak because the data is tiny.** Each intent has only about 12 examples per language (English, Bangla script, Banglish).

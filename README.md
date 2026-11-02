@@ -13,6 +13,7 @@ ShelterLink/
 ├── data/
 │   ├── services.csv           # verified food, health, education services
 │   ├── intent_examples.csv    # training sentences for the chatbot
+│   ├── danger_words.txt       # words that always mean EMERGENCY (safety net)
 │   └── README.md              # how to fill in the data
 ├── docs/
 │   ├── field_research_guide.md      # interview questions + verification checklist

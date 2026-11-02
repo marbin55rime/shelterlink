@@ -21,10 +21,10 @@ from shelterlink.search import FAR_KM, PROJECT, answer_details, walking_minutes
 MODEL = "claude-opus-5-5"
 HOSPITAL_GUIDE = (PROJECT / "docs" / "hospital_guide.md").read_text(encoding="utf-8")
 
-EMERGENCY_LINE = "🚨 এখনই ১০৯৮ (শিশু হেল্পলাইন) বা ৯৯৯ নম্বরে ফোন করো। দুইটাই ফ্রি।"
+EMERGENCY_LINE = "🚨 এখনই ৯৯৯ (পুলিশ) বা ১০৯৮ (শিশু হেল্পলাইন) নম্বরে ফোন করো। দুইটাই ফ্রি।"
 
 SYSTEM_PROMPT = """You are ShelterLink, a kind helper for street children in Dhaka, Bangladesh.
-Children aged 5-14 ask you where to find free food, a doctor, or a class.
+Children aged 5-14 ask you where to find free food, a doctor, a class, or a safe place to stay.
 
 How to reply:
 - Write in simple, spoken Bangla (Bengali script). Use "তুমি", like a caring older sibling.
@@ -83,6 +83,8 @@ def claude_reply(child_text, found):
 def hours_bn(service):
     if service["type"] == "hospital":
         return "বহির্বিভাগ শনি থেকে বৃহস্পতি সকাল ৮টা থেকে দুপুর ২:৩০ (টিকিট ২টা পর্যন্ত, ১০ টাকা), শুক্রবার বন্ধ।"
+    if service["days"] == "Every day":
+        return f"খোলা থাকে প্রতিদিন, {service['time']}।" if isinstance(service["time"], str) else "খোলা থাকে প্রতিদিন।"
     if isinstance(service["days"], str):
         days = ", ".join(DAYS_BN.get(d, d) + "বার" for d in service["days"].split(";"))
         return f"খোলা থাকে {days}, {service['time']}।"
@@ -90,7 +92,9 @@ def hours_bn(service):
 
 
 def where_bn(service):
-    line = f"{service['name']} ({service['landmark']})"
+    line = service["name"]
+    if isinstance(service["landmark"], str):
+        line += f" ({service['landmark']})"
     km = service.get("km")
     if km == km and km is not None:  # km != km only when it is NaN (unknown)
         if km < 0.2:
@@ -105,7 +109,7 @@ def where_bn(service):
 def template_reply(found):
     intent, best = found["intent"], found["best"]
     if intent == "OTHER":
-        return "আমি তোমাকে ফ্রি খাবার, ডাক্তার আর ক্লাস খুঁজে দিতে পারি। তোমার কী লাগবে?"
+        return "আমি তোমাকে ফ্রি খাবার, ডাক্তার, ক্লাস আর থাকার জায়গা খুঁজে দিতে পারি। তোমার কী লাগবে?"
     if intent == "EMERGENCY":
         if found["emergency"] is not None:
             return f"কাছের জরুরি বিভাগ (২৪ ঘণ্টা খোলা): {where_bn(found['emergency'])}।"
@@ -119,6 +123,8 @@ def template_reply(found):
         reply = f"এখন কিছু খোলা নেই। এখানে যেতে পারো: {where_bn(best)}। {hours_bn(best)}"
         if found["emergency"] is not None:
             reply += " খুব খারাপ লাগলে এখনই জরুরি বিভাগে যাও, ২৪ ঘণ্টা খোলা।"
+    if intent == "SHELTER":
+        reply += " আজ রাতে নিরাপদ জায়গার জন্য ১০৯৮ নম্বরেও ফোন করতে পারো, ফ্রি।"
     if found["place"] is None:
         reply += " তুমি কোথায় আছো বললে কাছের জায়গা খুঁজে দিতে পারবো।"
     return reply

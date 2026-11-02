@@ -29,6 +29,7 @@ The first 3 rows are **EXAMPLES**. Replace them with real services you have chec
 - **food:** `meal_point`, `community_kitchen`, `food_drive`, `school_meal`, `food_bank`, `mobile_meal`
 - **health:** `health_camp`, `clinic`, `hospital`, `medicine_distribution`, `vaccination`, `first_aid`, `counselling`
 - **education:** `edu_camp`, `street_class`, `night_school`, `school_admission`, `skill_training`, `library`, `free_materials`
+- **shelter:** `drop_in_centre`, `shelter_home` (recorded for later; the chatbot does not search shelters yet)
 
 ## Rules
 - Never add a service you have not **verified** yourself or through a trusted NGO.

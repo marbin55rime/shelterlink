@@ -136,7 +136,7 @@ def search(category, landmark, when, services, include_unverified=False):
     """Services in a category, open ones first, then nearest first."""
     in_category = services["category"] == category
     if category == "food":
-        # Schools and other places that hand out meals count as food too (e.g. Alor School)
+        # Schools and other places that hand out meals count as food too (e.g. Mojar School)
         in_category |= services["free_items"].str.contains("meal|lunch|tiffin|snack", case=False, na=False)
     found = services[in_category].copy()
     if not include_unverified:

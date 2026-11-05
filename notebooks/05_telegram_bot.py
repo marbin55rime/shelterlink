@@ -1,0 +1,155 @@
+"""
+ShelterLink - Step 5: Telegram test bot (Phase 1)
+
+Try ShelterLink from a phone: type a message in Telegram, get the Bangla reply.
+
+What this script teaches you:
+  - Connecting your code to a real chat app (python-telegram-bot)
+  - Keeping a secret (the bot token) out of your code and out of git
+  - Running slow work (Claude) without freezing the bot (asyncio.to_thread)
+  - Keeping only anonymous data, as the safeguarding policy says
+
+Setup (once):
+  1. In Telegram, open @BotFather, send /newbot and follow the steps.
+  2. BotFather gives you a token. Never share it and never paste it in a chat.
+  3. Save it in a file called telegram_token.txt in the ShelterLink folder
+     (git ignores this file), or set the TELEGRAM_BOT_TOKEN environment variable.
+
+Run it from the ShelterLink folder:
+    python notebooks/05_telegram_bot.py
+    python notebooks/05_telegram_bot.py --offline    (no Claude, templates only)
+The bot answers while this script runs. Press Ctrl+C to stop it.
+
+Safety:
+  - We never save message text, names, phone numbers, chat ids or GPS points.
+  - A shared location is kept in memory only, so the next question can use it.
+  - Each question is logged anonymously to outputs/telegram_log.csv:
+    the date, the need (intent), the general area, and 👍 / 👎 feedback.
+"""
+
+import asyncio
+import csv
+import os
+import sys
+from datetime import datetime
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.stdout.reconfigure(encoding="utf-8")
+
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup, Update
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, ContextTypes, MessageHandler, filters
+
+from shelterlink.bangla import EMERGENCY_LINE, reply_in_bangla
+from shelterlink.search import load_landmarks, load_model, load_services
+
+PROJECT = Path(__file__).resolve().parent.parent
+TOKEN_FILE = PROJECT / "telegram_token.txt"
+LOG_FILE = PROJECT / "outputs" / "telegram_log.csv"
+
+model, services, landmarks = load_model(), load_services(), load_landmarks()
+use_claude = "--offline" not in sys.argv
+
+WELCOME = (
+    "হ্যালো! আমি ShelterLink। আমি ফ্রি খাবার, ডাক্তার, ক্লাস আর থাকার জায়গা খুঁজে দিতে পারি।\n\n"
+    "লিখে বলো তোমার কী লাগবে আর তুমি কোথায় আছো। যেমন: \"bhuk lagse, ami dhanmondi 32\"\n"
+    "📍 নিচের বোতাম চাপলে তোমার কাছের জায়গা খুঁজে দেবো।\n\n"
+    f"{EMERGENCY_LINE}"
+)
+LOCATION_BUTTON = ReplyKeyboardMarkup(
+    [[KeyboardButton("📍 আমার লোকেশন পাঠাও", request_location=True)]], resize_keyboard=True
+)
+
+
+# ---------------------------------------------------------------
+# 1. Getting the token (a secret: never in the code, never in git)
+# ---------------------------------------------------------------
+def get_token():
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    if not token and TOKEN_FILE.exists():
+        token = TOKEN_FILE.read_text(encoding="utf-8").strip()
+    if not token:
+        sys.exit("No bot token. Save it in telegram_token.txt (see the top of this file).")
+    return token
+
+
+# ---------------------------------------------------------------
+# 2. Anonymous log: date, need, general area, feedback. Nothing else.
+# ---------------------------------------------------------------
+def log_event(event, intent, place="", source="", helpful=""):
+    LOG_FILE.parent.mkdir(exist_ok=True)
+    new_file = not LOG_FILE.exists()
+    with LOG_FILE.open("a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        if new_file:
+            writer.writerow(["date", "event", "intent", "place", "source", "helpful"])
+        writer.writerow([datetime.now().strftime("%Y-%m-%d"), event, intent, place, source, helpful])
+
+
+def area_name(found):
+    """The general area only: a landmark name, or just 'gps' (never the GPS point)."""
+    place = found["place"]
+    if place is None:
+        return ""
+    return "gps" if place["name"] == "your location" else place["name"]
+
+
+def feedback_buttons(intent):
+    return InlineKeyboardMarkup([[
+        InlineKeyboardButton("👍 কাজে লেগেছে", callback_data=f"fb:{intent}:yes"),
+        InlineKeyboardButton("👎 লাগেনি", callback_data=f"fb:{intent}:no"),
+    ]])
+
+
+def answer_child(text, location=None):
+    """The same steps as notebook 04: need + place -> checked service -> Bangla reply."""
+    found, reply, source = reply_in_bangla(text, None, model, services, landmarks, use_claude, location)
+    log_event("question", found["intent"], area_name(found), source)
+    return found, reply
+
+
+# ---------------------------------------------------------------
+# 3. What the bot does with each kind of message
+# ---------------------------------------------------------------
+async def on_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(WELCOME, reply_markup=LOCATION_BUTTON)
+
+
+async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    location = context.chat_data.get("location")
+    # Claude can take a few seconds; to_thread keeps the bot answering other children meanwhile
+    found, reply = await asyncio.to_thread(answer_child, update.message.text, location)
+    await update.message.reply_text(reply, reply_markup=feedback_buttons(found["intent"]))
+
+
+async def on_location(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # In memory only, for this chat's next questions. Never saved to a file.
+    context.chat_data["location"] = (update.message.location.latitude, update.message.location.longitude)
+    await update.message.reply_text("ধন্যবাদ! এখন লিখে বলো তোমার কী লাগবে: খাবার, ডাক্তার, ক্লাস, না থাকার জায়গা?")
+
+
+async def on_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(f"আমি এখনো ভয়েস বুঝি না। লিখে পাঠাও, প্লিজ।\n\n{EMERGENCY_LINE}")
+
+
+async def on_feedback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    _, intent, helpful = query.data.split(":")
+    log_event("feedback", intent, helpful=helpful)
+    await query.answer("ধন্যবাদ!")
+    await query.edit_message_reply_markup(reply_markup=None)  # one vote per reply
+
+
+def main():
+    app = Application.builder().token(get_token()).build()
+    app.add_handler(CommandHandler("start", on_start))
+    app.add_handler(MessageHandler(filters.LOCATION, on_location))
+    app.add_handler(MessageHandler(filters.VOICE | filters.AUDIO, on_voice))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
+    app.add_handler(CallbackQueryHandler(on_feedback, pattern=r"^fb:"))
+    print(f"ShelterLink bot is running ({'Claude' if use_claude else 'offline templates'}). Ctrl+C to stop.")
+    app.run_polling()
+
+
+if __name__ == "__main__":
+    main()

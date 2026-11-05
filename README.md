@@ -23,7 +23,8 @@ ShelterLink/
 │   ├── 01_explore_services.py        # look at the data
 │   ├── 02_train_intent_classifier.py # Phase 1: train the "what do you need?" model
 │   ├── 03_smart_search.py            # Phase 2: need + place + time -> nearest open service
-│   └── 04_bangla_replies.py          # Phase 3: short, kind replies in Bangla
+│   ├── 04_bangla_replies.py          # Phase 3: short, kind replies in Bangla
+│   └── 05_telegram_bot.py            # Phase 1: try ShelterLink from a phone (Telegram)
 ├── shelterlink/
 │   ├── search.py              # reusable search code (landmarks, distance, open now)
 │   └── bangla.py              # Bangla replies: Claude (LLM) or offline templates
@@ -47,6 +48,15 @@ ShelterLink/
 pip install -r requirements.txt
 python notebooks/01_explore_services.py
 ```
+
+### Telegram test bot
+1. In Telegram, open **@BotFather**, send `/newbot` and follow the steps.
+2. Save the token it gives you in a file called `telegram_token.txt` in this folder. Git ignores this file. Never share the token.
+3. Run the bot (it answers while this runs; Ctrl+C stops it):
+```bash
+python notebooks/05_telegram_bot.py
+```
+Add `--offline` to use the Bangla templates instead of Claude. The bot keeps only an anonymous log (date, need, area, 👍/👎) in `outputs/telegram_log.csv`.
 
 ## Safety
 Read [docs/child_safeguarding_policy.md](docs/child_safeguarding_policy.md). No personal data about children is ever stored in this repository.

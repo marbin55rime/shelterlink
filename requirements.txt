@@ -3,3 +3,4 @@ matplotlib
 scikit-learn
 joblib
 anthropic
+python-telegram-bot

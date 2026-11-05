@@ -5,3 +5,5 @@ outputs/
 # Never commit research notes that could identify children
 data/research_notes*.csv
 models/
+# Secret: the Telegram bot token
+telegram_token.txt

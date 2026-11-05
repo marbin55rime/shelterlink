@@ -155,6 +155,9 @@ def search(category, landmark, when, services, include_unverified=False):
     if category == "food":
         # Schools and other places that hand out meals count as food too (e.g. Mojar School)
         in_category |= services["free_items"].str.contains("meal|lunch|tiffin|snack", case=False, na=False)
+    if category == "health":
+        # Specialist hospitals (eyes, heart, burns...) are not for a normal "I'm sick"
+        in_category &= services["type"] != "specialist_hospital"
     found = services[in_category].copy()
     if not include_unverified:
         # Safety: never send a child to a place nobody has checked

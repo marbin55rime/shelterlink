@@ -2,7 +2,7 @@
 
 This is the knowledge the chatbot uses to explain **how** to get help at a government hospital. In Phase 3 it is loaded into the bot (RAG). The bot must explain it in short, simple Bangla.
 
-Applies to: Dhaka Shishu Hospital, Shaheed Suhrawardy Medical College Hospital, Dhaka Medical College Hospital, Bangladesh Medical University Hospital. See `data/services.csv`.
+Applies to: the general government hospitals in `data/services.csv` (type `hospital`), such as Dhaka Medical, Mitford, Suhrawardy, Mugda, Kurmitola and Dhaka Shishu Hospital. Specialist hospitals (type `specialist_hospital`) treat one kind of problem only. `tools/build_hospitals.py` adds new hospitals.
 
 ## Opening times
 | Service | Days | Time |

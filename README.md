@@ -29,7 +29,8 @@ ShelterLink/
 │   ├── search.py              # reusable search code (landmarks, distance, open now)
 │   └── bangla.py              # Bangla replies: Claude (LLM) or offline templates
 ├── tools/
-│   └── build_landmarks.py     # gets map locations for Dhaka areas from OpenStreetMap
+│   ├── build_landmarks.py     # gets map locations for Dhaka areas from OpenStreetMap
+│   └── build_hospitals.py     # adds Dhaka's government hospitals, with map locations
 ├── LEARNING_LOG.md            # what I learn every week
 └── requirements.txt
 ```

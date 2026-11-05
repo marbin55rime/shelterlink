@@ -29,6 +29,8 @@ SHORT_NAME_MATCH = 0.85  # short names need a closer match ("bala" must not matc
 WALK_KMH = 4  # a child's walking speed
 DETOUR = 1.3  # streets are longer than a straight line on the map
 FAR_KM = 5  # farther than this, we warn that the place is far
+# Bidyanondo's center gives food in its courtyard every day 12-2pm: the last resort for a hungry child
+FOOD_FALLBACK = "Bidyanondo Ek Takay Ahar - Pallabi (head office)"
 
 
 # ---------------------------------------------------------------
@@ -183,16 +185,26 @@ def search(category, landmark, when, services, include_unverified=False):
 # ---------------------------------------------------------------
 # 4. Put it together into a short reply
 # ---------------------------------------------------------------
+def costs_money(service):
+    """True when a child must pay (not hospitals: their ticket price is explained separately)."""
+    cost = service["cost"]
+    return pd.notna(cost) and not cost.startswith("free") and "hospital" not in service["type"]
+
+
 def describe(service):
     line = service["name"]
     if pd.notna(service["landmark"]):
         line += f" ({service['landmark']})"
+    if costs_money(service):
+        line += f", not free: {service['cost']}"
     if pd.notna(service["km"]):
         line += f", about {service['km']:.1f} km away (about {walking_minutes(service['km'])} minutes walking)"
         if service["km"] > FAR_KM:
             line += ". This is far, and there is no checked place closer yet"
     if pd.notna(service["days"]):
         line += f". {service['days'].replace(';', ', ')}, {service['time']}"
+    elif pd.notna(service["time"]):
+        line += f". Around {service['time']} (which days, we don't know yet)"
     return line
 
 
@@ -232,9 +244,14 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
         return {**found, "facts": "I can help you find free food, a doctor, a class, or a place to stay. What do you need?"}
 
     results = search(intent.lower(), place, when, services)
+    if place is not None:
+        # The child told us where they are: a place nearby beats an open one far away
+        nearby = results[results["km"] <= FAR_KM]
+        if len(nearby):
+            results = nearby
     open_now = results[results["open_now"] == True]  # noqa: E712 (open_now can be None)
     if place is not None:
-        # The child told us where they are: only suggest places we can find on the map
+        # Only suggest places we can find on the map
         open_now = open_now[~open_now["no_location"]]
 
     if len(open_now):
@@ -244,7 +261,9 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
         found["best"] = results.iloc[0]
         if found["best"]["open_now"] is None:
             found["is_open"] = None  # we don't know its hours yet
-            facts = f"Nearest place{where}: {describe(found['best'])}. I don't know its opening hours yet."
+            facts = f"Nearest place{where}: {describe(found['best'])}."
+            if pd.isna(found["best"]["time"]):
+                facts += " I don't know its opening hours yet."
         else:
             facts = f"Nothing is open right now{where}. Next option: {describe(found['best'])}."
         if intent == "HEALTH":
@@ -253,6 +272,11 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
                 facts += f" If it is serious, go to the Emergency gate at {found['emergency']['name']} (open 24 hours)."
     else:
         facts = f"I don't have a checked place for this yet. Ask your Alor School teacher, or call {HELPLINES}."
+    best = found["best"]
+    if intent == "FOOD" and best is not None and best["name"] != FOOD_FALLBACK and (
+            not found["is_open"] or best["km"] > FAR_KM):
+        found["food_fallback"] = True
+        facts += " If you can't find food anywhere, go to Bidyanondo's center in Pallabi, Mirpur between 12 and 2pm: they always give food there for 1 taka."
     if intent == "SHELTER":
         # A child with nowhere to sleep tonight should always have a number to call
         facts += " For a safe place tonight, you can also call Child Helpline 1098 (free)."

@@ -114,6 +114,9 @@ AREAS = [
     ("Abdullahpur", "abdullahpur;আব্দুল্লাহপুর", "Abdullahpur", None),
     ("Dakshinkhan", "dakshinkhan;dokkhinkhan;দক্ষিণখান", "Dakshinkhan", None),
     ("Uttarkhan", "uttarkhan;উত্তরখান", "Uttarkhan", None),
+    # Just outside Dhaka city (outside DHAKA_BOX), so the locations are fixed here
+    ("Narayanganj", "narayanganj;narayangonj;narayongonj;নারায়ণগঞ্জ", None, (23.62367, 90.49881)),
+    ("Bandar", "bandar;bondor bazar;bandar bazar;বন্দর", None, (23.61417, 90.51281)),
 ]
 
 

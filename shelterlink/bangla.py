@@ -12,11 +12,12 @@ never left to the LLM.
 """
 
 import os
+import re
 from pathlib import Path
 
 import anthropic
 
-from shelterlink.search import FAR_KM, PROJECT, answer_details, walking_minutes
+from shelterlink.search import FAR_KM, PROJECT, answer_details, costs_money, walking_minutes
 
 MODEL = "claude-opus-5-5"
 HOSPITAL_GUIDE = (PROJECT / "docs" / "hospital_guide.md").read_text(encoding="utf-8")
@@ -88,13 +89,21 @@ def hours_bn(service):
     if isinstance(service["days"], str):
         days = ", ".join(DAYS_BN.get(d, d) + "বার" for d in service["days"].split(";"))
         return f"খোলা থাকে {days}, {service['time']}।"
+    if isinstance(service["time"], str):
+        return f"সাধারণত {service['time']} এর দিকে (কোন দিন, এখনো জানি না)।"
     return ""
+
+
+BN_DIGITS = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
 
 
 def where_bn(service):
     line = service["name"]
     if isinstance(service["landmark"], str):
         line += f" ({service['landmark']})"
+    taka = re.search(r"(\d+) taka", service["cost"]) if costs_money(service) else None
+    if taka:
+        line += f", ফ্রি না: {taka.group(1).translate(BN_DIGITS)} টাকা লাগে"
     km = service.get("km")
     if km == km and km is not None:  # km != km only when it is NaN (unknown)
         if km < 0.2:
@@ -120,11 +129,13 @@ def template_reply(found):
     if found["is_open"]:
         reply = f"এখন খোলা আছে: {where_bn(best)}। {hours_bn(best)}"
     elif found["is_open"] is None:
-        reply = f"কাছের জায়গা: {where_bn(best)}। কখন খোলা থাকে এখনো জানি না।"
+        reply = f"কাছের জায়গা: {where_bn(best)}। {hours_bn(best) or 'কখন খোলা থাকে এখনো জানি না।'}"
     else:
         reply = f"এখন কিছু খোলা নেই। এখানে যেতে পারো: {where_bn(best)}। {hours_bn(best)}"
         if found["emergency"] is not None:
             reply += " খুব খারাপ লাগলে এখনই জরুরি বিভাগে যাও, ২৪ ঘণ্টা খোলা।"
+    if found.get("food_fallback"):
+        reply += " কোথাও খাবার না পেলে দুপুর ১২টা থেকে ২টার মধ্যে মিরপুর পল্লবীতে বিদ্যানন্দের সেন্টারে যাও, ওখানে উঠানে ১ টাকায় খাবার পাবে।"
     if intent == "SHELTER":
         reply += " আজ রাতে নিরাপদ জায়গার জন্য ১০৯৮ নম্বরেও ফোন করতে পারো, ফ্রি।"
     if found["place"] is None:

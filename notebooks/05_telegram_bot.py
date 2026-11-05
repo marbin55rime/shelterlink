@@ -30,6 +30,7 @@ Safety:
 import asyncio
 import csv
 import os
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -67,9 +68,13 @@ LOCATION_BUTTON = ReplyKeyboardMarkup(
 def get_token():
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     if not token and TOKEN_FILE.exists():
-        token = TOKEN_FILE.read_text(encoding="utf-8").strip()
+        token = TOKEN_FILE.read_text(encoding="utf-8-sig").strip()  # utf-8-sig: Notepad may add a BOM
     if not token:
         sys.exit("No bot token. Save it in telegram_token.txt (see the top of this file).")
+    # A token looks like 1234567890:ABC... (numbers, a colon, then letters). We never print it.
+    if not re.fullmatch(r"\d+:[A-Za-z0-9_-]{30,}", token):
+        sys.exit("The token doesn't look right. It must be numbers, then ':', then letters, "
+                 "for example 1234567890:ABC... Copy it again from @BotFather.")
     return token
 
 

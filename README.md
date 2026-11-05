@@ -27,7 +27,8 @@ ShelterLink/
 │   └── 05_telegram_bot.py            # Phase 1: try ShelterLink from a phone (Telegram)
 ├── shelterlink/
 │   ├── search.py              # reusable search code (landmarks, distance, open now)
-│   └── bangla.py              # Bangla replies: Claude (LLM) or offline templates
+│   ├── bangla.py              # Bangla replies: Claude (LLM) or offline templates
+│   └── voice.py               # voice in (Whisper, on this computer) and voice out (Bangla speech)
 ├── tools/
 │   ├── build_landmarks.py     # gets map locations for Dhaka areas from OpenStreetMap
 │   └── build_hospitals.py     # adds Dhaka's government hospitals, with map locations
@@ -40,7 +41,7 @@ ShelterLink/
 - [ ] **Phase 1: Intent classifier** (weeks 5–8): FOOD / HEALTH / EDUCATION / EMERGENCY / OTHER, plus a Telegram test bot. *In progress: v0.1 model at 58%, collecting real student sentences*
 - [ ] **Phase 2: Smart search** (weeks 9–11): landmarks, "open now", dates for camps, age filter. *In progress: landmark matching, distance, open-now and safety filters working*
 - [ ] **Phase 3: LLM answers** (weeks 12–15): tool calling over verified data, health safety rules. *In progress: Bangla replies from checked facts only (Claude, or offline templates); emergency numbers always added by code*
-- [ ] **Phase 4: Voice** (weeks 16–19): speech-to-text and text-to-speech in the local language
+- [ ] **Phase 4: Voice** (weeks 16–19): speech-to-text and text-to-speech in the local language. *In progress: the Telegram bot understands voice messages (Whisper) and replies with Bangla speech and text*
 - [ ] **Phase 5: Access channels** (weeks 20–23): missed-call line, SMS, kiosk, picture posters, camp alerts
 - [ ] **Phase 6: Pilot and impact** (weeks 24–30): real use with partner NGOs, impact report
 
@@ -58,6 +59,8 @@ python notebooks/01_explore_services.py
 python notebooks/05_telegram_bot.py
 ```
 Add `--offline` to use the Bangla templates instead of Claude. The bot keeps only an anonymous log (date, need, area, 👍/👎) in `outputs/telegram_log.csv`.
+
+Children can **speak** instead of typing (hold the 🎤 button in Telegram). Every reply comes as a voice message and as text. The first run downloads the speech model (about 500 MB). Voice messages are turned into text on this computer and deleted right away.
 
 ## Safety
 Read [docs/child_safeguarding_policy.md](docs/child_safeguarding_policy.md). No personal data about children is ever stored in this repository.

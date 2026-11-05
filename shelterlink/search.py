@@ -10,6 +10,7 @@ The steps for one question:
 
 import math
 import re
+import unicodedata
 from datetime import datetime
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -53,25 +54,71 @@ def load_model():
 # ---------------------------------------------------------------
 # 1. What does the child need?
 # ---------------------------------------------------------------
+# Voice messages come out of Whisper spelled by sound: "বচাও" for "বাঁচাও",
+# "মার্চে" for "মারছে". sound_key() keeps only what you hear: vowel signs and
+# marks go, and letters that sound alike become one letter.
+BN_SOUND_ALIKE = str.maketrans({
+    "আ": "অ", "ঈ": "ই", "ঊ": "উ", "ছ": "চ", "খ": "ক", "ঘ": "গ", "ঝ": "জ", "ঠ": "ট", "ঢ": "ড",
+    "থ": "ত", "ধ": "দ", "ফ": "প", "ভ": "ব", "শ": "স", "ষ": "স", "ণ": "ন",
+    "ড": "দ", "ট": "ত",  # Whisper mixes these up ("দক্তর" for "ডাক্তার")
+})
+# vowel signs, ঁ ং ঃ, ্ and the dot ় (so ড় becomes ড and য় becomes য)
+BN_SILENT = re.compile("[া-্ঁ-ঃ়ৗ]")
+
+
+def sound_key(text):
+    # NFD splits ড় into ড + ় , so both spellings of it look the same
+    return BN_SILENT.sub("", unicodedata.normalize("NFD", text.lower()).translate(BN_SOUND_ALIKE))
+
+
 def load_danger_words():
     lines = (DATA / "danger_words.txt").read_text(encoding="utf-8").splitlines()
     return [w.strip().lower() for w in lines if w.strip() and not w.startswith("#")]
 
 
 DANGER_WORDS = load_danger_words()
+DANGER_SOUNDS = {sound_key(w) for w in DANGER_WORDS if re.search("[ঀ-৿]", w)}
 
 
 def has_danger_word(text):
     # Spaces around every word, so only whole words match ("ki chan" but not "ki chanachur")
     padded = " " + " ".join(re.sub(r"[,.!?।]", " ", text.lower()).split()) + " "
-    return any(f" {word} " in padded for word in DANGER_WORDS)
+    if any(f" {word} " in padded for word in DANGER_WORDS):
+        return True
+    # Same check by sound, for Bangla spelled the way it sounds
+    return any(f" {key} " in sound_key(padded) for key in DANGER_SOUNDS)
+
+
+def load_need_words():
+    needs = {}
+    for line in (DATA / "need_words.txt").read_text(encoding="utf-8").splitlines():
+        if ":" in line and not line.startswith("#"):
+            need, words = line.split(":", 1)
+            needs[need.strip()] = {sound_key(w.strip()) for w in words.split(",") if w.strip()}
+    return needs
+
+
+NEED_WORDS = load_need_words()
+
+
+def need_from_words(text):
+    """The one need whose words appear in the text, or None (no need words, or several)."""
+    words = set(sound_key(re.sub(r"[,.!?।]", " ", text)).split())
+    padded = " " + " ".join(sound_key(re.sub(r"[,.!?।]", " ", text)).split()) + " "
+    found = {need for need, keys in NEED_WORDS.items()
+             if words & keys or any(" " in k and f" {k} " in padded for k in keys)}
+    return found.pop() if len(found) == 1 else None
 
 
 def predict_intent(model, text):
     # Safety net: danger words are always an emergency, even if the model is unsure
     if has_danger_word(text):
         return "EMERGENCY"
-    probs = model.predict_proba([text.lower()])[0]
+    # Clear need words ("ভুখ", "ডাক্তার") beat an unsure model, e.g. on voice messages
+    need = need_from_words(text)
+    if need:
+        return need
+    probs = model.predict_proba([sound_key(text)])[0]  # the model learned from sound keys
     classes = list(model.classes_)
     if probs[classes.index("EMERGENCY")] >= EMERGENCY_THRESHOLD:
         return "EMERGENCY"
@@ -92,7 +139,9 @@ def find_landmark(text, landmarks):
             alias = alias.strip().lower()
             size = len(alias.split())
             pieces = [" ".join(words[i:i + size]) for i in range(len(words) - size + 1)]
-            score = max((SequenceMatcher(None, alias, p).ratio() for p in pieces), default=0)
+            score = max((max(SequenceMatcher(None, alias, p).ratio(),
+                             SequenceMatcher(None, sound_key(alias), sound_key(p)).ratio())
+                         for p in pieces), default=0)
             if score < (SHORT_NAME_MATCH if len(alias) < 7 else LANDMARK_MATCH):
                 continue
             # On a tie, the longer name wins ("mirpur 10" beats "mirpur 1")

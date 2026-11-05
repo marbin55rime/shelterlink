@@ -4,3 +4,6 @@ scikit-learn
 joblib
 anthropic
 python-telegram-bot
+faster-whisper
+edge-tts
+av<16  # faster-whisper 1.2 breaks with av 16+

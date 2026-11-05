@@ -30,6 +30,8 @@ from sklearn.pipeline import make_pipeline
 sys.stdout.reconfigure(encoding="utf-8")  # so Bangla prints correctly on Windows
 
 PROJECT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT))  # so Python finds shelterlink/
+from shelterlink.search import sound_key  # noqa: E402
 MODELS = PROJECT / "models"
 MODELS.mkdir(exist_ok=True)
 
@@ -42,7 +44,8 @@ EMERGENCY_THRESHOLD = 0.30
 # 1. Load the sentences
 # ---------------------------------------------------------------
 data = pd.read_csv(PROJECT / "data" / "intent_examples.csv")
-texts = data["text"].str.lower()
+# sound_key(): Bangla by sound, so "ভুখ লাগছে" and a voice message's "ভূখ লখচে" look alike
+texts = data["text"].map(sound_key)
 labels = data["intent"]
 print(f"Sentences: {len(data)}")
 print(labels.value_counts().to_string(), "\n")
@@ -124,7 +127,7 @@ new_sentences = [
     "tumi ki robot",
 ]
 print("=== TRY IT ===")
-new_probs = model.predict_proba([s.lower() for s in new_sentences])
+new_probs = model.predict_proba([sound_key(s) for s in new_sentences])
 new_pred = apply_safety_rule(model.classes_, new_probs, model.classes_[new_probs.argmax(axis=1)])
 for sentence, intent, p in zip(new_sentences, new_pred, new_probs):
     print(f"  {sentence:30} -> {intent:10} (confidence {p.max():.0%})")

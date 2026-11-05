@@ -1,0 +1,11 @@
+# Need words: if a child's message has words from exactly ONE need below,
+# ShelterLink answers that need, even when the model is unsure.
+# Danger words (danger_words.txt) are always checked first, so an emergency still wins.
+# Format: NEED: word, word, word
+# Only whole words match, and Bangla is compared by sound (ভুখ = ভূখ, ডাক্তার = দক্তর).
+# Add the words your students use.
+
+FOOD: ভুখ, ভুক, খিদা, খিদে, ক্ষুধা, খাবার, খাইতে, খাব, খাবো, খামু, bhuk, bhukh, khida, khide, khabar, khaite, khabo, khamu, hungry, food
+HEALTH: ডাক্তার, ডাক্তারের, অসুখ, জ্বর, জর, ব্যথা, বেথা, ওষুধ, অষুধ, হাসপাতাল, daktar, doctor, oshukh, osukh, jor, jwor, betha, osud, oshudh, hospital, sick, fever
+EDUCATION: পড়তে, পড়া, পড়বো, পড়মু, স্কুল, স্কুলে, ক্লাস, ক্লাসে, শিখতে, বই, porte, pora, porbo, school, class, shikhte, study, learn
+SHELTER: থাকমু, থাকবো, থাকার, ঘুমাবো, ঘুমামু, ঘুমানোর, thakmo, thakbo, thakar, ghumabo, ghumamu, sleep, stay

@@ -173,9 +173,11 @@ def search(category, landmark, when, services, include_unverified=False):
     else:
         found["km"] = math.nan
 
-    # Sort: open now (0), unknown (1), closed (2); then by distance
+    # Sort: places we can find on the map first (a child can't go to "place changes");
+    # then open now (0), unknown (1), closed (2); then by distance
+    found["no_location"] = found["latitude"].isna()
     found["rank"] = found["open_now"].map({True: 0, None: 1, False: 2}).fillna(1)
-    return found.sort_values(["rank", "km"], na_position="last")
+    return found.sort_values(["no_location", "rank", "km"], na_position="last")
 
 
 # ---------------------------------------------------------------
@@ -231,13 +233,20 @@ def answer_details(text, when=None, model=None, services=None, landmarks=None, l
 
     results = search(intent.lower(), place, when, services)
     open_now = results[results["open_now"] == True]  # noqa: E712 (open_now can be None)
+    if place is not None:
+        # The child told us where they are: only suggest places we can find on the map
+        open_now = open_now[~open_now["no_location"]]
 
     if len(open_now):
         found["best"], found["is_open"] = open_now.iloc[0], True
         facts = f"Open now{where}: {describe(found['best'])}."
     elif len(results):
         found["best"] = results.iloc[0]
-        facts = f"Nothing is open right now{where}. Next option: {describe(found['best'])}."
+        if found["best"]["open_now"] is None:
+            found["is_open"] = None  # we don't know its hours yet
+            facts = f"Nearest place{where}: {describe(found['best'])}. I don't know its opening hours yet."
+        else:
+            facts = f"Nothing is open right now{where}. Next option: {describe(found['best'])}."
         if intent == "HEALTH":
             found["emergency"] = nearest_emergency(results)
             if found["emergency"] is not None:

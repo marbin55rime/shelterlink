@@ -119,6 +119,8 @@ def template_reply(found):
 
     if found["is_open"]:
         reply = f"এখন খোলা আছে: {where_bn(best)}। {hours_bn(best)}"
+    elif found["is_open"] is None:
+        reply = f"কাছের জায়গা: {where_bn(best)}। কখন খোলা থাকে এখনো জানি না।"
     else:
         reply = f"এখন কিছু খোলা নেই। এখানে যেতে পারো: {where_bn(best)}। {hours_bn(best)}"
         if found["emergency"] is not None:
